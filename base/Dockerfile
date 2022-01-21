@@ -1,4 +1,4 @@
-FROM alpine:3.13
+FROM node:lts-alpine
 
 ENV DISPLAY :1
 # alternative 1024x768x16
@@ -9,7 +9,9 @@ RUN apk add --no-cache \
   xfce4 \
   faenza-icon-theme \
   xvfb \
-  x11vnc
+  x11vnc \
+  curl unzip libexif udev \
+  firefox chromium harfbuzz nss freetype ttf-freefont libstdc++
 
 # setup novnc (requires bash)
 RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
