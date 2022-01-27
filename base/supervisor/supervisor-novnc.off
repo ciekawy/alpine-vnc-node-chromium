@@ -1,5 +1,5 @@
 [program:novnc]
-command=/usr/bin/novnc_server --web /usr/share/novnc/
+command=sh -c "sleep 3 && /usr/bin/novnc_server --web /usr/share/novnc/"
 redirect_stderr=true
 stdout_logfile=/var/log/novnc/stdout
 stdout_logfile_maxbytes=5MB
@@ -7,6 +7,6 @@ stderr_logfile=/var/log/novnc/stderr
 stderr_logfile_maxbytes=5MB
 stopsignal=INT
 numprocs_start=1
-startsecs=2
+startsecs=8
 autostart=true
 autorestart=true

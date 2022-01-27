@@ -10,14 +10,14 @@ RUN apk add --no-cache \
   faenza-icon-theme \
   xvfb \
   x11vnc \
-  curl unzip libexif udev \
-  firefox chromium harfbuzz nss freetype ttf-freefont libstdc++
+  curl unzip libexif udev bash \
+  firefox chromium mesa-gles harfbuzz nss freetype ttf-freefont libstdc++
 
 # setup novnc (requires bash)
-RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-  bash \
-  novnc && \
-  ln -s /usr/share/novnc/vnc.html /usr/share/novnc/index.html
+# RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+#  bash \
+#  novnc websockify && \
+#  ln -s /usr/share/novnc/vnc.html /usr/share/novnc/index.html
 
 # setup supervisor
 COPY supervisor /tmp
@@ -25,7 +25,7 @@ SHELL ["/bin/bash", "-c"]
 RUN apk add --no-cache supervisor && \
   echo_supervisord_conf > /etc/supervisord.conf && \
   sed -i -r -f /tmp/supervisor.sed /etc/supervisord.conf && \
-  mkdir -pv /etc/supervisor/conf.d /var/log/{novnc,x11vnc,xfce4,xvfb} && \
+  mkdir -pv /etc/supervisor/conf.d /var/log/{x11vnc,xfce4,xvfb} && \
   mv /tmp/supervisor-*.ini /etc/supervisor/conf.d/ && \
   rm -fr /tmp/supervisor*
 
